@@ -1,0 +1,71 @@
+
+MANDELBROT
+----------
+for(j=0; j<height/size; j++)
+			{
+				cy=ymin + (double)j*resolution;
+				for(i=0; i<width;  i++)
+				{
+
+					cx=xmin + (double)i*resolution;
+					zx=0.0f;
+					zy=0.0f;
+					zx2=zx*zx;
+					zy2=zy*zy;
+					
+					for(it=0;it<iteration[0] && zx2+zy2<4.0f; it++)
+					{
+						zy = 2.0f*zx*zy + cy;
+						zx = zx2-zy2 + cx;
+						zx2 = zx*zx;
+						zy2 = zy*zy;
+					}
+					mat[i][j] = it%256;
+				}
+			}
+
+in this code cy and cx is c from pseudocode.
+c = cx + i * cy
+but I don't have to use i complex number. 
+
+z = zx+i*zy
+zx2 = zx*zx
+zy2 = zy*zy
+
+
+so in pseudocode:
+z <-  z*z + c
+
+which means 
+z*z = zx^2 - zy^2 +   i* (2*zx*zy)
+I immediately modified zx into zx^2-zy^2 because as I said I don't have
+to use i complex number
+so zx = zx^2 - zy^2  + cx
+zy = 2*zx*zy  +  cy
+
+and everytime I have to check if zx^2+zy^2 < 4.0f   (without sqrt)
+which is   zx2+zy2<4.0
+
+and after some amount of iteration I write it to mat[i][j]
+--------
+JULIA
+
+For Julia is similar as above.
+only difference is I have to work every pixels with z. (in mandelbrot
+it is with c)
+
+c => constant
+
+
+
+Printing
+---------
+for printing I printed as 
+		for(j=height-1;j>=0;j--)
+		{
+			for(i=0;i<width;i++)
+				fprintf(fout,"%d ",mat[i][j]);
+			fprintf(fout,"\n");
+		}
+
+because of screen coordinates. 
