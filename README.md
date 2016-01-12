@@ -11,7 +11,9 @@ Members:
 
 Dependencies for Python:
 python 2.7: sudo apt-get install 
+
 python pip: sudo apt-get install pip 
+
 cairo library: pip install cairo
 
 Running the program:
